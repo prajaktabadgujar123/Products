@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const API_URL = "https://stageapi.monkcommerce.app/task/products/search";
+const API_URL = import.meta.env.VITE_API_URL;
 const HEADERS = {
-  "x-api-key": "72njgfa948d9aS7gs5",
+  "x-api-key": import.meta.env.VITE_API_KEY,
 };
 
 // Async thunk for fetching paginated products
@@ -10,9 +10,6 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async ({ page, searchQuery }, { rejectWithValue }) => {
     try {
-      // const response = await fetch(`${API_URL}?page=${page}&limit=10`, {
-      //   headers: HEADERS,
-      // });
       const url = searchQuery
         ? `https://stageapi.monkcommerce.app/task/products/search?search=${encodeURIComponent(
             searchQuery
