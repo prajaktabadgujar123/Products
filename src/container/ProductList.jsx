@@ -179,6 +179,11 @@ const ProductList = () => {
     );
   };
 
+  // Function to remove a product
+  const onProductRemove = (productId) => {
+    setProducts((prev) => prev.filter((product) => product.id !== productId));
+  };
+
   return (
     <>
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
@@ -198,6 +203,8 @@ const ProductList = () => {
                   index={index}
                   onToggleVariants={toggleVariants}
                   onEditProduct={openProductPicker}
+                  onProductRemove={onProductRemove}
+                  productCount={products.length}
                   isVariants={product.variants && product.variants.length > 0}
                 />
                 {product.showVariants &&

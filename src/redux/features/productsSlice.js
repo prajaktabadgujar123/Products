@@ -11,9 +11,7 @@ export const fetchProducts = createAsyncThunk(
   async ({ page, searchQuery }, { rejectWithValue }) => {
     try {
       const url = searchQuery
-        ? `https://stageapi.monkcommerce.app/task/products/search?search=${encodeURIComponent(
-            searchQuery
-          )}&limit=10`
+        ? `${API_URL}?search=${encodeURIComponent(searchQuery)}&limit=10`
         : `${API_URL}?page=${page}&limit=10`;
 
       const response = await fetch(url, { headers: HEADERS });

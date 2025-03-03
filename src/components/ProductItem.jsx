@@ -13,6 +13,7 @@ import {
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import CloseIcon from "@mui/icons-material/Close";
 
 // Component for a single product
 const ProductItem = ({
@@ -21,6 +22,8 @@ const ProductItem = ({
   onToggleVariants,
   onEditProduct,
   isVariants,
+  onProductRemove,
+  productCount,
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: product.id });
@@ -158,6 +161,14 @@ const ProductItem = ({
           >
             Add Discount
           </Button>
+        )}
+        {productCount > 1 && (
+          <CloseIcon
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={() => onProductRemove(product.id)}
+            fontSize="small"
+            sx={{ marginLeft: "20px", cursor: "pointer" }}
+          />
         )}
       </div>
       {/* Button to toggle visibility of variants */}
