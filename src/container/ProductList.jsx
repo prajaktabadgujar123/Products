@@ -160,6 +160,12 @@ const ProductList = () => {
         updatedProducts = [...prev, ...selectedProducts];
       }
 
+      // Remove duplicates
+      updatedProducts = updatedProducts.filter(
+        (product, index, self) =>
+          index === self.findIndex((p) => p.id === product.id)
+      );
+
       //keep only the latest 4 products
       return updatedProducts.slice(-4);
     });
@@ -169,13 +175,16 @@ const ProductList = () => {
 
   // Function to remove a variant from a product
   const onRemove = (variantId) => {
-    setProducts((prev) =>
-      prev.map((product) => ({
-        ...product,
-        variants: product.variants.filter(
-          (variant) => variant.id !== variantId
-        ),
-      }))
+    setProducts(
+      (prev) =>
+        prev
+          .map((product) => ({
+            ...product,
+            variants: product.variants.filter(
+              (variant) => variant.id !== variantId
+            ),
+          }))
+          .filter((product) => product.variants.length > 0) // Remove products with no variants
     );
   };
 
